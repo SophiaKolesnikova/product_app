@@ -23,10 +23,10 @@ const ProductCard = ({ product }: IProductDetailsProps) => {
         <h5 className="mb-2 text-xl font-medium text-neutral-800 dark:text-neutral-50">
           {state.product?.title}
         </h5>
-        <p className="mb-4 text-base text-neutral-600 dark:text-neutral-200">
+        <p className="mb-4 text-base text-neutral-600 dark:text-neutral-800">
           {state.product?.description}
         </p>
-        <p className="text-xs text-neutral-500 dark:text-neutral-300">
+        <p className="text-xs text-neutral-500 dark:text-neutral-500">
           Category: {state.product?.category}
         </p>
         <p className="font-medium">Price: {state.product?.price}</p>
