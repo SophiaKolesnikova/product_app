@@ -1,6 +1,6 @@
 declare module "app/types" {
     export type ProductListType = {
-        id?: number,
+        id: number,
         title: string,
         price: number,
         description: string,
@@ -12,11 +12,10 @@ declare module "app/types" {
         }
     };
 
-    export type NewProductType = Omit<ProductListType, "rating">;
+    export type NewProductType = Partial<Omit<ProductListType, "id", "rating">>;
 
 
-    export type RemoveProductType = Omit<ProductListType, "rating">;
-
+    export type RemoveProductType = Partial<Omit<ProductListType, "rating">>;
 }
 
 

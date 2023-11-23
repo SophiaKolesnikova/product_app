@@ -15,7 +15,7 @@ export type InitialProductStateType = {
     isFetching: boolean;
 };
 
-const initialState: InitialProductStateType = {
+export const initialState: InitialProductStateType = {
     error: null,
     products: [],
     isFetching: true,
@@ -43,7 +43,7 @@ const products = (
             return {
                 ...state,
                 isFetching: false,
-                products: [...state.products, action.payload.productAdd],
+                products: [action.payload.productAdd].concat(...state.products),
             };
         case ADD_PRODUCT_FAILURE:
             return {
@@ -56,7 +56,7 @@ const products = (
             return {
                 ...state,
                 isFetching: false,
-                // products: state.products = state.products.filter(product => product.id !== action.payload.productRemove)
+                products: state.products.filter(product => product.id !== action.payload.productRemove.id)
             };
         case REMOVE_PRODUCT_FAILURE:
             return {

@@ -1,7 +1,7 @@
 import axios, { Canceler, CancelTokenStatic } from "axios";
 
 const API_BASE: string | undefined = "https://fakestoreapi.com";
-//перевести получение токена с localstorage на cookie
+
 const token: string | null = window?.localStorage.getItem("authToken");
 
 if (token !== null && token.length) {
@@ -58,13 +58,14 @@ const patch = (path: string, body: any) => {
     });
 };
 
-const deleted = (path: string) => {
+const deleted = (path: string, body: any) => {
     return axios({
         headers: {
             "Content-Type": "application/json"
         },
         method: "delete",
-        url: `${API_BASE}/${path}`
+        url: `${API_BASE}/${path}`,
+        data: body ? JSON.stringify(body) : undefined
     });
 };
 

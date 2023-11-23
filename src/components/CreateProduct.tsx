@@ -12,8 +12,6 @@ const CreateProduct = ({ onCreate }: CreateProductProps) => {
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
 
-
-
   const dispatch = useDispatch<AppDispatch>();
 
   const handlerSubmit = (e: React.FormEvent) => {
@@ -27,7 +25,6 @@ const CreateProduct = ({ onCreate }: CreateProductProps) => {
 
     dispatch(
       addProduct({
-        id: Date.now(),
         title: value,
         price: 13.5,
         description: "lorem ipsum set",
@@ -40,7 +37,7 @@ const CreateProduct = ({ onCreate }: CreateProductProps) => {
   };
 
   const handlerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+      setValue(e.target.value);
   };
 
   return (

@@ -1,5 +1,5 @@
 import axios from "../utils/axios";
-import {NewProductType} from "app/types";
+import { NewProductType, RemoveProductType } from "app/types";
 
 
  export const fetchProductList = async (): Promise<any> => {
@@ -9,5 +9,9 @@ import {NewProductType} from "app/types";
  export const addNewProduct = async (newProduct: NewProductType): Promise<any> => {
         return axios.POST("products", newProduct);
     };
+
+export const removeOneProduct = async (productRemove: RemoveProductType): Promise<any> => {
+    return axios.DELETE(`products/${productRemove.id}`, productRemove);
+};
 
 

@@ -16,8 +16,8 @@ const HomePage = () => {
     (state: AppStateType) => state.products
   );
   const [modal, setModal] = useState(false);
-
   const dispatch = useDispatch<AppDispatch>();
+
 
   useEffect((): void => {
     dispatch(fetchProducts());

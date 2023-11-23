@@ -7,7 +7,6 @@ import {
     FETCH_PRODUCT_LIST_SUCCESS,
     REMOVE_PRODUCT_FAILURE,
     REMOVE_PRODUCT_SUCCESS,
-    SET_PRODUCT_PAGE
 } from "../constants/actionTypes";
 import {NewProductType, ProductListType, RemoveProductType} from "app/types";
 import * as ProductAPI from "../api/products.api";
@@ -16,7 +15,6 @@ import * as ProductAPI from "../api/products.api";
 export type ProductsActionsTypes =
 | FetchProductsSuccessType
 | FetchProductsFailureType
-| SetProductPageType
 | AddProductSuccessType
 | AddProductFailureType
 | RemoveProductSuccessType
@@ -51,28 +49,15 @@ export const fetchProductsFailure = (error: string): FetchProductsFailureType =>
     }
 });
 
-type SetProductPageType = {
-    type: typeof SET_PRODUCT_PAGE;
-    payload: {
-        productPage: number;
-    };
-};
-
-export const setProductPageType = (productPage: number): SetProductPageType => ({
-    type: SET_PRODUCT_PAGE,
-    payload: {
-        productPage
-    }
-});
 
 type AddProductSuccessType = {
     type: typeof ADD_PRODUCT_SUCCESS;
     payload: {
-        productAdd: NewProductType[]
+        productAdd: NewProductType
     };
 };
 
-export const addProductSuccess = (productAdd: NewProductType[]):AddProductSuccessType => ({
+export const addProductSuccess = (productAdd: NewProductType):AddProductSuccessType => ({
     type: ADD_PRODUCT_SUCCESS,
     payload: {
         productAdd
@@ -96,11 +81,11 @@ export const addProductFailure = (error: string):AddProductFailureType => ({
 type RemoveProductSuccessType = {
     type: typeof REMOVE_PRODUCT_SUCCESS;
     payload: {
-        productRemove: RemoveProductType[]
+        productRemove: RemoveProductType
     };
 };
 
-export const removeProductSuccess = (productRemove: RemoveProductType[]):RemoveProductSuccessType => ({
+export const removeProductSuccess = (productRemove: RemoveProductType):RemoveProductSuccessType => ({
     type: REMOVE_PRODUCT_SUCCESS,
     payload: {
         productRemove
@@ -147,10 +132,26 @@ export const addProduct = (newProduct: NewProductType):
     > => async (dispatch) => {
     try {
         const response = await ProductAPI.addNewProduct(newProduct);
-
+        console.log(response)
         dispatch(addProductSuccess(response.data));
     } catch (error: any) {
         dispatch(addProductFailure(error.message));
+    }
+};
+
+export const removeProduct = (productRemove: RemoveProductType):
+    ThunkAction<
+        Promise<void>,
+        AppStateType,
+        undefined,
+        ProductsActionsTypes
+    > => async (dispatch) => {
+    try {
+        const response = await ProductAPI.removeOneProduct(productRemove);
+        console.log(response)
+        dispatch(removeProductSuccess(response.data));
+    } catch (error: any) {
+        dispatch(removeProductFailure(error.message));
     }
 };
 
